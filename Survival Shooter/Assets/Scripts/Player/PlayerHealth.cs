@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -18,8 +18,7 @@ public class PlayerHealth : MonoBehaviour
     PlayerMovement playerMovement;
     //PlayerShooting playerShooting;
     bool isDead;                                                
-    bool damaged;                                               
-
+    bool damaged;                                           
 
     void Awake()
     {
@@ -30,8 +29,6 @@ public class PlayerHealth : MonoBehaviour
 
         currentHealth = startingHealth;
     }
-
-
     void Update()
     {
         if (damaged)
@@ -42,19 +39,13 @@ public class PlayerHealth : MonoBehaviour
         {
             damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
         }
-
         damaged = false;
     }
-
-
     public void TakeDamage(int amount)
     {
         damaged = true;
-
         currentHealth -= amount;
-
         healthSlider.value = currentHealth;
-
         playerAudio.Play();
 
         if (currentHealth <= 0 && !isDead)
@@ -67,15 +58,16 @@ public class PlayerHealth : MonoBehaviour
     void Death()
     {
         isDead = true;
-
         //playerShooting.DisableEffects();
-
         anim.SetTrigger("Die");
-
         playerAudio.clip = deathClip;
         playerAudio.Play();
 
         playerMovement.enabled = false;
         //playerShooting.enabled = false;
+    }
+    public void RestartLevel()
+    {
+        SceneManager.LoadScene(0);
     }
 }
