@@ -15,7 +15,6 @@ public class PlayerMovement : MonoBehaviour
         anim = GetComponent<Animator>();
         playerRigidbody = GetComponent<Rigidbody>();
     }
-
     private void FixedUpdate()
     {
         float h = Input.GetAxisRaw("Horizontal");
@@ -31,7 +30,6 @@ public class PlayerMovement : MonoBehaviour
         movement = movement.normalized * speed * Time.deltaTime;
         playerRigidbody.MovePosition(transform.position + movement);
     }
-
     void Turning()
     {
         Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -50,6 +48,5 @@ public class PlayerMovement : MonoBehaviour
     {
         bool walking = h != 0f || v != 0f;
         anim.SetBool("IsWalking", walking);
-
     }
 }
